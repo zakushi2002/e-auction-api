@@ -1,9 +1,7 @@
 package com.e.auction.api.constant;
 
-import com.e.auction.api.utils.ConfigurationService;
-
 public class EAuctionConstant {
-    public static final String ROOT_DIRECTORY = ConfigurationService.getInstance().getString("file.upload-dir", "/tmp/upload");
+    public static final String REGION_STATIC = "ap-southeast-1";
 
     /**
      * Date format constant

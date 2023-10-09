@@ -1,4 +1,0 @@
-2023.10.06 15:08:12.094 [INFO] org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor: Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2023.10.06 15:08:14.832 [WARN] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration: spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023.10.06 15:08:16.455 [WARN] org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter: Unable to create an RSA verifier from verifierKey (ignoreable if using MAC)
-2023.10.06 15:08:17.943 [WARN] org.springframework.cloud.netflix.archaius.ArchaiusAutoConfiguration: No spring.application.name found, defaulting to 'application'
