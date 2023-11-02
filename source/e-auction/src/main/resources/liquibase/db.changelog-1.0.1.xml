@@ -1,0 +1,222 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="TOAN (generated)" id="1698955911821-1">
+        <createTable tableName="db_e_auction_address">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="db_e_auction_addressPK"/>
+            </column>
+            <column name="kind" type="INT"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="postal_code" type="VARCHAR(255)"/>
+            <column name="parent_id" type="BIGINT"/>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-2">
+        <createTable tableName="db_e_auction_auction">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="db_e_auction_auctionPK"/>
+            </column>
+            <column name="current_price" type="DOUBLE PRECISION"/>
+            <column name="end_date" type="datetime"/>
+            <column name="max_bidders" type="INT"/>
+            <column name="min_bid_price" type="DOUBLE PRECISION"/>
+            <column name="payment_price" type="DOUBLE PRECISION"/>
+            <column name="start_date" type="datetime"/>
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seller_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="winner_id" type="BIGINT"/>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-3">
+        <createTable tableName="db_e_auction_bid_history">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="db_e_auction_bid_historyPK"/>
+            </column>
+            <column name="bid_price" type="DOUBLE PRECISION"/>
+            <column name="auction_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bidder_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-4">
+        <createTable tableName="db_e_auction_product">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="db_e_auction_productPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="buy_now_price" type="DOUBLE PRECISION"/>
+            <column name="start_bid_price" type="DOUBLE PRECISION"/>
+            <column name="description" type="LONGTEXT"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="seller_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bid_time" type="INT"/>
+            <column name="main_image" type="LONGTEXT"/>
+            <column name="sub_image1" type="LONGTEXT"/>
+            <column name="sub_image2" type="LONGTEXT"/>
+            <column name="sub_image3" type="LONGTEXT"/>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-5">
+        <createTable tableName="db_e_auction_user_profile">
+            <column name="account_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="db_e_auction_user_profilePK"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="gender" type="INT"/>
+            <column name="birthdate" type="datetime"/>
+            <column name="province_id" type="BIGINT"/>
+            <column name="district_id" type="BIGINT"/>
+            <column name="ward_id" type="BIGINT"/>
+            <column name="address" type="TEXT"/>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-6">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="db_e_auction_auction"
+                                 constraintName="FK2lcipohqrjk2odsnmns2qdnwg" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_product" validate="true" onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-7">
+        <addForeignKeyConstraint baseColumnNames="winner_id" baseTableName="db_e_auction_auction"
+                                 constraintName="FK8tdorvfhprfxfkhs76scflmd" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_account" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-8">
+        <addForeignKeyConstraint baseColumnNames="bidder_id" baseTableName="db_e_auction_bid_history"
+                                 constraintName="FKa4d5cx6i20tfpxb58ema9x990" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_account" validate="true" onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-9">
+        <addForeignKeyConstraint baseColumnNames="district_id" baseTableName="db_e_auction_user_profile"
+                                 constraintName="FKakk2rt1hc78r3i8m4rhcek18f" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_address" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-10">
+        <addForeignKeyConstraint baseColumnNames="province_id" baseTableName="db_e_auction_user_profile"
+                                 constraintName="FKas7k2ik1l4gii8ox7a92clf20" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_address" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-11">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="db_e_auction_address"
+                                 constraintName="FKbcv1l7rsc3p4ljot5mja44c70" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_address" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-12">
+        <addForeignKeyConstraint baseColumnNames="auction_id" baseTableName="db_e_auction_bid_history"
+                                 constraintName="FKc3wy0mjss0c9mbmse3nm1qmt7" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_auction" validate="true" onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-13">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="db_e_auction_product"
+                                 constraintName="FKe0yrftidmsbfxajiafq5upjxc" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_category" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-14">
+        <addForeignKeyConstraint baseColumnNames="ward_id" baseTableName="db_e_auction_user_profile"
+                                 constraintName="FKhycklo2udqobb1uat0rmk4org" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_address" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-15">
+        <addForeignKeyConstraint baseColumnNames="seller_id" baseTableName="db_e_auction_auction"
+                                 constraintName="FKk55dpdcwiopkhygu95cw5yt2w" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_account" validate="true" onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-16">
+        <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="db_e_auction_user_profile"
+                                 constraintName="FKmr519yjxa8qt607ro90l5pv21" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_account" validate="true"/>
+    </changeSet>
+    <changeSet author="TOAN (generated)" id="1698955911821-17">
+        <addForeignKeyConstraint baseColumnNames="seller_id" baseTableName="db_e_auction_product"
+                                 constraintName="FKrv3kc8dhvug4qpbm0bvv4kbbq" deferrable="false"
+                                 initiallyDeferred="false" referencedColumnNames="id"
+                                 referencedTableName="db_e_auction_account" validate="true" onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>
