@@ -36,10 +36,20 @@ public class EAuctionConstant {
     /**
      * Category kind constant
      */
-    public static final Integer CATEGORY_KIND_HOSPITAL = 1;
-    public static final Integer CATEGORY_KIND_HOSPITAL_ROLE = 2;
-    public static final Integer CATEGORY_KIND_DEPARTMENT = 3;
-    public static final Integer CATEGORY_KIND_ACADEMIC_DEGREE = 4;
+    public static final Integer CATEGORY_KIND_PRODUCT = 1;
+
+    /**
+     * Nation kind constant
+     */
+    public static final Integer NATION_KIND_PROVINCE = 1;
+    public static final Integer NATION_KIND_DISTRICT = 2;
+    public static final Integer NATION_KIND_WARD = 3;
+
+    /**
+     * Gender constant
+     */
+    public static final Integer GENDER_MALE = 1;
+    public static final Integer GENDER_FEMALE = 2;
 
     private EAuctionConstant() {
         throw new IllegalStateException("Utility class");
