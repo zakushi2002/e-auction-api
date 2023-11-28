@@ -4,6 +4,7 @@ import com.e.auction.api.view.validation.Privacy;
 import com.e.auction.api.constant.EAuctionConstant;
 
 import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
 public class PrivacyValidation implements ConstraintValidator<Privacy, Integer> {
@@ -15,7 +16,7 @@ public class PrivacyValidation implements ConstraintValidator<Privacy, Integer> 
     }
 
     @Override
-    public boolean isValid(Integer privacy, javax.validation.ConstraintValidatorContext constraintValidatorContext) {
+    public boolean isValid(Integer privacy, ConstraintValidatorContext constraintValidatorContext) {
         if (privacy == null && allowNull) {
             return true;
         }

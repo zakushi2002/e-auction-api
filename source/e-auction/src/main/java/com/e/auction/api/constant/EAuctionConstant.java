@@ -39,11 +39,11 @@ public class EAuctionConstant {
     public static final Integer CATEGORY_KIND_PRODUCT = 1;
 
     /**
-     * Nation kind constant
+     * Address kind constant
      */
-    public static final Integer NATION_KIND_PROVINCE = 1;
-    public static final Integer NATION_KIND_DISTRICT = 2;
-    public static final Integer NATION_KIND_WARD = 3;
+    public static final Integer ADDRESS_KIND_PROVINCE = 1;
+    public static final Integer ADDRESS_KIND_DISTRICT = 2;
+    public static final Integer ADDRESS_KIND_WARD = 3;
 
     /**
      * Gender constant
