@@ -1,4 +1,8 @@
 package com.e.auction.api.repository;
 
-public interface AddressRepository {
+import com.e.auction.api.model.Address;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+public interface AddressRepository extends JpaRepository<Address, String>, JpaSpecificationExecutor<Address> {
 }

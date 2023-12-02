@@ -15,8 +15,7 @@ import java.util.List;
 @Setter
 public class Address extends Auditable<String> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     private String postalCode;
     private Integer kind;
