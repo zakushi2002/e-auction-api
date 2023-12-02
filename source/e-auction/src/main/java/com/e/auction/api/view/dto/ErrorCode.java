@@ -37,4 +37,14 @@ public class ErrorCode {
      * Address error code
      */
     public static final String ADDRESS_ERROR_NOT_FOUND = "ERROR-ADDRESS-000";
+
+    /**
+     * User profile error code
+     */
+    public static final String USER_PROFILE_ERROR_NOT_FOUND = "ERROR-USER-PROFILE-000";
+
+    /**
+     * Shipping error code
+     */
+    public static final String SHIPPING_ERROR_NOT_FOUND = "ERROR-SHIPPING-000";
 }
