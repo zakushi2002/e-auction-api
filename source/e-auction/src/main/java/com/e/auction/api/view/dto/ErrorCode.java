@@ -32,4 +32,9 @@ public class ErrorCode {
      */
     public static final String CATEGORY_ERROR_NOT_FOUND = "ERROR-CATEGORY-000";
     public static final String CATEGORY_ERROR_NAME_EXIST_IN_KIND = "ERROR-CATEGORY-001";
+
+    /**
+     * Address error code
+     */
+    public static final String ADDRESS_ERROR_NOT_FOUND = "ERROR-ADDRESS-000";
 }

@@ -23,5 +23,5 @@ public class Address extends Auditable<String> {
     @JoinColumn(name = "parent_id")
     private Address parent;
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Address> nations;
+    private List<Address> childList;
 }
