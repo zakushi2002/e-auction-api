@@ -47,4 +47,9 @@ public class ErrorCode {
      * Shipping error code
      */
     public static final String SHIPPING_ERROR_NOT_FOUND = "ERROR-SHIPPING-000";
+
+    /**
+    *Product error code
+     */
+     public static final String PRODUCT_ERROR_NAME_EXIST = "ERROR-PRODUCT-000";
 }
