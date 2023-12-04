@@ -15,8 +15,7 @@ import java.util.List;
 @Setter
 public class Address extends Auditable<String> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     private String postalCode;
     private Integer kind;
@@ -24,5 +23,5 @@ public class Address extends Auditable<String> {
     @JoinColumn(name = "parent_id")
     private Address parent;
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Address> nations;
+    private List<Address> childList;
 }

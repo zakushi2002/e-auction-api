@@ -13,11 +13,14 @@ public class EAuctionConstant {
      * Security Constant for grant type
      */
     public static final String GRANT_TYPE_PASSWORD = "password";
+    public static final String GRANT_TYPE_AUTHORIZATION_CODE = "authorization_code";
+    public static final String GRANT_TYPE_GOOGLE = "google";
 
     /**
      * Account kind constant
      */
     public static final Integer ACCOUNT_KIND_ADMIN = 1;
+    public static final Integer ACCOUNT_KIND_USER = 2;
 
     /**
      * Status constant
@@ -39,17 +42,23 @@ public class EAuctionConstant {
     public static final Integer CATEGORY_KIND_PRODUCT = 1;
 
     /**
-     * Nation kind constant
+     * Address kind constant
      */
-    public static final Integer NATION_KIND_PROVINCE = 1;
-    public static final Integer NATION_KIND_DISTRICT = 2;
-    public static final Integer NATION_KIND_WARD = 3;
+    public static final Integer ADDRESS_KIND_PROVINCE = 1;
+    public static final Integer ADDRESS_KIND_DISTRICT = 2;
+    public static final Integer ADDRESS_KIND_WARD = 3;
 
     /**
      * Gender constant
      */
     public static final Integer GENDER_MALE = 1;
     public static final Integer GENDER_FEMALE = 2;
+
+    /**
+     * Provider constant
+     */
+    public static final String PROVIDER_FACEBOOK = "facebook";
+    public static final String PROVIDER_GOOGLE = "google";
 
     private EAuctionConstant() {
         throw new IllegalStateException("Utility class");

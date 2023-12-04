@@ -19,7 +19,7 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class EAuctionApiService {
-    static final String[] UPLOAD_TYPES = new String[]{"LOGO", "AVATAR", "IMAGE", "DOCUMENT", "PRODUCT"};
+    static final String[] UPLOAD_TYPES = new String[]{"AVATAR"}; // "LOGO", "AVATAR", "IMAGE", "DOCUMENT", "PRODUCT"
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
     @Value("${cloud.aws.credentials.access.key}")
@@ -36,12 +36,17 @@ public class EAuctionApiService {
             boolean contains = Arrays.stream(UPLOAD_TYPES).anyMatch(uploadFileForm.getType()::equalsIgnoreCase);
             if (!contains) {
                 apiMessageDto.setResult(false);
-                apiMessageDto.setMessage("Type is required in AVATAR or LOGO or IMAGE or DOCUMENT or PRODUCT");
+                apiMessageDto.setMessage("File type is not supported");
                 return apiMessageDto;
             }
             uploadFileForm.setType(uploadFileForm.getType().toUpperCase());
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(uploadFileForm.getFile().getOriginalFilename()));
             String ext = FilenameUtils.getExtension(fileName);
+            if (!Objects.equals(ext, "jpg") && !Objects.equals(ext, "jpeg") && !Objects.equals(ext, "png") && !Objects.equals(ext, "gif")) {
+                apiMessageDto.setResult(false);
+                apiMessageDto.setMessage("File extension is not supported");
+                return apiMessageDto;
+            }
             String finalFile = uploadFileForm.getType() + "_" + RandomStringUtils.randomAlphanumeric(10) + "." + ext;
             String bucketFolder = bucketName + "/" + uploadFileForm.getType().trim().toLowerCase();
             awsCloudUtil.uploadFile(finalFile, uploadFileForm.getFile().getBytes(), accessKey, secretKey, bucketFolder);

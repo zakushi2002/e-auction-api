@@ -3,6 +3,7 @@ package com.e.auction.api.view.mapper;
 import com.e.auction.api.view.dto.account.AccountDto;
 import com.e.auction.api.view.form.account.UpdateAdminForm;
 import com.e.auction.api.model.Account;
+import com.e.auction.api.view.form.profile.user.CreateUserAccountForm;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -12,6 +13,12 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         uses = {GroupMapper.class})
 public interface AccountMapper {
+    @Mapping(source = "email", target = "email")
+    @Mapping(source = "fullName", target = "fullName")
+    @Mapping(source = "avatarPath", target = "avatarPath")
+    @BeanMapping(ignoreByDefault = true)
+    Account fromCreateUserAccountFormToEntity(CreateUserAccountForm createUserAccountForm);
+
     @Mapping(source = "id", target = "id")
     @Mapping(source = "kind", target = "kind")
     @Mapping(source = "email", target = "email")

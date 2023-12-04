@@ -10,22 +10,27 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = TablePrefix.PREFIX_TABLE + "user_profile")
+@Table(name = TablePrefix.PREFIX_TABLE + "transaction")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class UserProfile extends Auditable<String> {
+public class Transaction extends Auditable<String> {
     @Id
     @GenericGenerator(name = "idGenerator", strategy = "com.e.auction.api.service.id.IdGenerator")
     @GeneratedValue(generator = "idGenerator")
     private Long id;
-    private Integer gender;
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id")
-    @MapsId
-    private Account account;
-    private Date birthdate;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "bidder_id")
+    private Account bidder;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "auction_id")
+    private Auction auction;
+    private String address;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipping_id")
-    private Shipping shipping;
+    private ShippingCost shippingCost;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PaymentMethod paymentMethod;
+    private Date shippingDate;
+    private Integer duration;
+    private Date receiveDate;
 }

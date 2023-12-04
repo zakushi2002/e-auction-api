@@ -2,6 +2,7 @@ package com.e.auction.api.controller;
 
 import com.e.auction.api.repository.AccountRepository;
 import com.e.auction.api.repository.GroupRepository;
+import com.e.auction.api.service.EAuctionApiService;
 import com.e.auction.api.view.dto.ApiResponse;
 import com.e.auction.api.view.dto.ErrorCode;
 import com.e.auction.api.view.dto.ResponseListDto;
@@ -42,6 +43,8 @@ public class AccountController extends BaseController {
     AccountMapper accountMapper;
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    EAuctionApiService eAuctionApiService;
 
     @PostMapping(value = "/create-admin", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ACC_C_AD')")

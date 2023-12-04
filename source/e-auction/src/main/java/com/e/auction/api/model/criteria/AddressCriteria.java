@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 public class AddressCriteria implements Serializable {
-    private Long id;
+    private String id;
     private String name;
     private String postalCode;
     private Integer kind;

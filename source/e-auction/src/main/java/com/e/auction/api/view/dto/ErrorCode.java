@@ -32,4 +32,24 @@ public class ErrorCode {
      */
     public static final String CATEGORY_ERROR_NOT_FOUND = "ERROR-CATEGORY-000";
     public static final String CATEGORY_ERROR_NAME_EXIST_IN_KIND = "ERROR-CATEGORY-001";
+
+    /**
+     * Address error code
+     */
+    public static final String ADDRESS_ERROR_NOT_FOUND = "ERROR-ADDRESS-000";
+
+    /**
+     * User profile error code
+     */
+    public static final String USER_PROFILE_ERROR_NOT_FOUND = "ERROR-USER-PROFILE-000";
+
+    /**
+     * Shipping error code
+     */
+    public static final String SHIPPING_ERROR_NOT_FOUND = "ERROR-SHIPPING-000";
+
+    /**
+    *Product error code
+     */
+     public static final String PRODUCT_ERROR_NAME_EXIST = "ERROR-PRODUCT-000";
 }
