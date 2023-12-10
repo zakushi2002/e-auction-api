@@ -49,7 +49,7 @@ public class ErrorCode {
     public static final String SHIPPING_ERROR_NOT_FOUND = "ERROR-SHIPPING-000";
 
     /**
-    *Product error code
+     * Product error code
      */
-     public static final String PRODUCT_ERROR_NAME_EXIST = "ERROR-PRODUCT-000";
+    public static final String PRODUCT_ERROR_NOT_FOUND = "ERROR-PRODUCT-000";
 }
