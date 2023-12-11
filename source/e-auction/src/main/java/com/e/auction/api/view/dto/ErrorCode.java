@@ -52,4 +52,11 @@ public class ErrorCode {
      * Product error code
      */
     public static final String PRODUCT_ERROR_NOT_FOUND = "ERROR-PRODUCT-000";
+    public static final String PRODUCT_ERROR_NOT_FOUND_OR_NOT_BELONG_TO_SELLER = "ERROR-PRODUCT-001";
+
+    /**
+     * Auction error code
+     */
+    public static final String AUCTION_ERROR_NOT_FOUND = "ERROR-AUCTION-000";
+
 }

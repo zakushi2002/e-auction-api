@@ -29,6 +29,7 @@ public class EAuctionConstant {
     public static final Integer STATUS_PENDING = 0;
     public static final Integer STATUS_LOCK = -1;
     public static final Integer STATUS_DELETE = -2;
+    public static final Integer STATUS_DONE = 2;
 
     /**
      * Privacy constant
