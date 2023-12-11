@@ -59,4 +59,10 @@ public class ErrorCode {
      */
     public static final String AUCTION_ERROR_NOT_FOUND = "ERROR-AUCTION-000";
 
+    /**
+     * Bid history error code
+     */
+    public static final String BID_HISTORY_ERROR_BID_PRICE_INVALID = "ERROR-BID-HISTORY-000";
+    public static final String BID_HISTORY_ERROR_NOT_FOUND = "ERROR-BID-HISTORY-001";
+
 }

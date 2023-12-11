@@ -11,5 +11,5 @@ public class CreateBidHistoryForm {
     @NotNull(message = "bidderId cannot be null!!!")
     private Long bidderId;
     @NotNull(message = "bidPrice cannot be null!!!")
-    private Long bidPrice;
+    private Double bidPrice;
 }
