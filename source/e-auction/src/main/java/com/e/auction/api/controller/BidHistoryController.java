@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/v1/bid-history")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -38,7 +40,7 @@ public class BidHistoryController extends BaseController {
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ApiMessageDto<BidHistoryDto> createBidHistory(CreateBidHistoryForm createBidHistoryForm, BindingResult bindingResult) {
+    public ApiMessageDto<BidHistoryDto> createBidHistory(@Valid @RequestBody CreateBidHistoryForm createBidHistoryForm, BindingResult bindingResult) {
         ApiMessageDto<BidHistoryDto> apiMessageDto = new ApiMessageDto<>();
         Account bidder = accountRepository.findById(createBidHistoryForm.getBidderId()).orElse(null);
         if (bidder == null) {

@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/v1/auction")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -39,7 +41,7 @@ public class AuctionController extends BaseController {
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ApiMessageDto<AuctionDto> createAuction(CreateAuctionForm createAuctionForm, BindingResult bindingResult) {
+    public ApiMessageDto<AuctionDto> createAuction(@Valid @RequestBody CreateAuctionForm createAuctionForm, BindingResult bindingResult) {
         ApiMessageDto<AuctionDto> apiMessageDto = new ApiMessageDto<>();
         Account seller = accountRepository.findById(createAuctionForm.getSellerId()).orElse(null);
         if (seller == null) {
