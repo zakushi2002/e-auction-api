@@ -8,7 +8,8 @@ import org.mapstruct.*;
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        uses = {AccountMapper.class, ProductMapper.class})
 public interface AuctionMapper {
     @Mapping(source = "maxBidders", target = "maxBidders")
     @Mapping(source = "paymentPrice", target = "paymentPrice")
@@ -18,8 +19,8 @@ public interface AuctionMapper {
     Auction fromCreateFormToModel(CreateAuctionForm createAuctionForm);
 
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "product", target = "product")
-    @Mapping(source = "seller", target = "seller")
+    @Mapping(source = "product", target = "product", qualifiedByName = "fromEntityToDtoAutoComplete")
+    @Mapping(source = "seller", target = "seller", qualifiedByName = "fromAccountToAutoCompleteDto")
     @Mapping(source = "maxBidders", target = "maxBidders")
     @Mapping(source = "paymentPrice", target = "paymentPrice")
     @Mapping(source = "minBidPrice", target = "minBidPrice")
