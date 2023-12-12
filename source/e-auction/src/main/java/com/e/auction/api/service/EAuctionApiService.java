@@ -8,6 +8,7 @@ import com.e.auction.api.view.form.UploadFileForm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -28,6 +29,8 @@ public class EAuctionApiService {
     private String secretKey;
     @Value("${cloud.aws.s3.endpoint.url}")
     private String endpointUrl;
+    @Autowired
+    CommonAsyncService commonAsyncService;
     private final AWSCloudUtil awsCloudUtil = new AWSCloudUtil();
 
     public ApiMessageDto<UploadFileDto> uploadFileS3(UploadFileForm uploadFileForm) {
