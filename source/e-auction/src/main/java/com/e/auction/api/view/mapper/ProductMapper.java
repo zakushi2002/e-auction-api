@@ -58,4 +58,20 @@ public interface ProductMapper {
     @Mapping(source = "status", target = "status")
     @BeanMapping(ignoreByDefault = true)
     void mappingUpdateProductFormToEntity(UpdateProductForm updateProductForm, @MappingTarget Product product);
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "description", target = "description")
+    @Mapping(source = "startBidPrice", target = "startBidPrice")
+    @Mapping(source = "buyNowPrice", target = "buyNowPrice")
+    @Mapping(source = "bidTime", target = "bidTime")
+    @Mapping(source = "mainImage", target = "mainImage")
+    @Mapping(source = "subImage1", target = "subImage1")
+    @Mapping(source = "subImage2", target = "subImage2")
+    @Mapping(source = "subImage3", target = "subImage3")
+    @Mapping(source = "category", target = "category", qualifiedByName = "fromEntityToShortDto")
+    @Mapping(source = "status", target = "status")
+    @BeanMapping(ignoreByDefault = true)
+    @Named("fromEntityToDtoAutoComplete")
+    ProductDto fromEntityToDtoAutoComplete(Product product);
 }
