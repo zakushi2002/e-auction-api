@@ -23,10 +23,10 @@ public class CreateUserAccountForm {
     @ApiModelProperty(name = "avatarPath")
     private String avatarPath;
     @ApiModelProperty(name = "dateOfBirth", required = true)
-    @NotNull(message = "birthdate cannot be null!")
-    @Past(message = "birthdate must be in the past!")
+    /*@NotNull(message = "birthdate cannot be null!")
+    @Past(message = "birthdate must be in the past!")*/
     private Date birthdate;
-    @ApiModelProperty(name = "gender", required = true)
-    @Gender(message = "Gender must be 1 (Male) or 2 (Female)!")
+    @ApiModelProperty(name = "gender")
+    @Gender(message = "Gender must be 1 (Male) or 2 (Female)!", allowNull = true)
     private Integer gender;
 }
