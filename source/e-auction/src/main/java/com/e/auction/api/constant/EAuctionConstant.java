@@ -61,6 +61,14 @@ public class EAuctionConstant {
     public static final String PROVIDER_FACEBOOK = "facebook";
     public static final String PROVIDER_GOOGLE = "google";
 
+    /**
+     * Sort constant
+     */
+    public static final Integer SORT_PRICE_ASC = 1;
+    public static final Integer SORT_PRICE_DESC = 2;
+    public static final Integer SORT_NAME_ASC = 3;
+    public static final Integer SORT_NAME_DESC = 4;
+
     private EAuctionConstant() {
         throw new IllegalStateException("Utility class");
     }
