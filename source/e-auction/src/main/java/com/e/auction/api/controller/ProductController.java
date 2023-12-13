@@ -42,7 +42,7 @@ public class ProductController extends BaseController {
     ProductMapper productMapper;
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('PRODUCT_CREATE')")
+    // @PreAuthorize("hasRole('PRODUCT_CREATE')")
     @Transactional
     public ApiMessageDto<ProductDto> createProduct(@Valid @RequestBody CreateProductForm createProductForm, BindingResult bindingResult) {
         ApiMessageDto<ProductDto> apiMessageDto = new ApiMessageDto<>();
@@ -103,7 +103,7 @@ public class ProductController extends BaseController {
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('PRODUCT_UPDATE')")
+    // @PreAuthorize("hasRole('PRODUCT_UPDATE')")
     @Transactional
     public ApiMessageDto<ProductDto> updateProduct(@Valid @RequestBody UpdateProductForm updateProductForm, BindingResult bindingResult) {
         ApiMessageDto<ProductDto> apiMessageDto = new ApiMessageDto<>();
@@ -131,7 +131,7 @@ public class ProductController extends BaseController {
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('PRODUCT_DELETE')")
+    // @PreAuthorize("hasRole('PRODUCT_DELETE')")
     @Transactional
     public ApiMessageDto<Long> deleteProduct(@PathVariable Long id) {
         ApiMessageDto<Long> apiMessageDto = new ApiMessageDto<>();

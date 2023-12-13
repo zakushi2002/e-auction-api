@@ -45,7 +45,7 @@ public class GroupController extends BaseController {
     PermissionRepository permissionRepository;
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('GR_C')")
+    // @PreAuthorize("hasRole('GR_C')")
     @Transactional
     public ApiMessageDto<String> createGroup(@Valid @RequestBody CreateGroupForm createGroupForm, BindingResult bindingResult) {
         if (!isSuperAdmin()) {
@@ -74,7 +74,7 @@ public class GroupController extends BaseController {
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('GR_U')")
+    // @PreAuthorize("hasRole('GR_U')")
     public ApiMessageDto<String> updateGroup(@Valid @RequestBody UpdateGroupForm updateGroupForm, BindingResult bindingResult) {
         if (!isSuperAdmin()) {
             throw new UnauthorizationException("Not allowed update.");
@@ -114,7 +114,7 @@ public class GroupController extends BaseController {
     }
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('GR_L')")
+    // @PreAuthorize("hasRole('GR_L')")
     public ApiMessageDto<ResponseListDto<GroupDto>> listGroup(@Valid GroupCriteria groupCriteria, Pageable pageable) {
         if (!isSuperAdmin()) {
             throw new UnauthorizationException("Not allowed list.");
@@ -128,7 +128,7 @@ public class GroupController extends BaseController {
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('GR_V')")
+    // @PreAuthorize("hasRole('GR_V')")
     public ApiMessageDto<GroupDto> getGroup(@PathVariable("id") Long id) {
         if (!isSuperAdmin()) {
             throw new UnauthorizationException("Not allowed to get.");
@@ -141,7 +141,7 @@ public class GroupController extends BaseController {
     }
 
     @PostMapping(value = "/add-permission", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('GR_U')")
+    // @PreAuthorize("hasRole('GR_U')")
     @Transactional
     public ApiMessageDto<String> addPermission(@Valid @RequestBody AddPermissionForm addPermissionForm, BindingResult bindingResult) {
         if (!isSuperAdmin()) {
@@ -169,7 +169,7 @@ public class GroupController extends BaseController {
     }
 
     @DeleteMapping(value = "/remove-permission", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('GR_U')")
+    // @PreAuthorize("hasRole('GR_U')")
     @Transactional
     public ApiMessageDto<String> removePermission(@Valid @RequestBody AddPermissionForm addPermissionForm, BindingResult bindingResult) {
         if (!isSuperAdmin()) {

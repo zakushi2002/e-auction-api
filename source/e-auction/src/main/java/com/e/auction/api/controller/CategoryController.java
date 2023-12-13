@@ -42,7 +42,7 @@ public class CategoryController extends BaseController {
     EAuctionApiService apiService;
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('CATE_L')")
+    // @PreAuthorize("hasRole('CATE_L')")
     public ApiMessageDto<ResponseListDto<CategoryDto>> listCategory(CategoryCriteria categoryCriteria, Pageable pageable) {
         ApiMessageDto<ResponseListDto<CategoryDto>> apiMessageDto = new ApiMessageDto<>();
         Page<Category> listCategory = categoryRepository.findAll(categoryCriteria.getSpecification(), pageable);
@@ -64,7 +64,7 @@ public class CategoryController extends BaseController {
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('CATE_V')")
+    // @PreAuthorize("hasRole('CATE_V')")
     public ApiMessageDto<CategoryDto> get(@PathVariable("id") Long id) {
         ApiMessageDto<CategoryDto> apiMessageDto = new ApiMessageDto<>();
         Category category = categoryRepository.findById(id).orElse(null);
@@ -80,7 +80,7 @@ public class CategoryController extends BaseController {
     }
 
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('CATE_C')")
+    // @PreAuthorize("hasRole('CATE_C')")
     @Transactional
     public ApiMessageDto<Long> createCategory(@Valid @RequestBody CreateCategoryForm createCategoryForm, BindingResult bindingResult) {
         ApiMessageDto<Long> apiMessageDto = new ApiMessageDto<>();
@@ -110,7 +110,7 @@ public class CategoryController extends BaseController {
     }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('CATE_U')")
+    // @PreAuthorize("hasRole('CATE_U')")
     @Transactional
     public ApiMessageDto<Long> updateCategory(@Valid @RequestBody UpdateCategoryForm updateCategoryForm, BindingResult bindingResult) {
         ApiMessageDto<Long> apiMessageDto = new ApiMessageDto<>();
@@ -139,7 +139,7 @@ public class CategoryController extends BaseController {
         return apiMessageDto;
     }
 
-    @PreAuthorize("hasRole('CATE_D')")
+    // @PreAuthorize("hasRole('CATE_D')")
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ApiMessageDto<Long> deleteCategory(@PathVariable("id") Long id) {
