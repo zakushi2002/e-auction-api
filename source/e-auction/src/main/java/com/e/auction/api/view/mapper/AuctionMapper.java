@@ -34,4 +34,20 @@ public interface AuctionMapper {
 
     @IterableMapping(elementTargetType = AuctionDto.class, qualifiedByName = "fromEntityToDto")
     List<AuctionDto> fromEntityToDtoList(List<Auction> auctions);
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "product", target = "product", qualifiedByName = "fromEntityToDtoAutoCompleteClient")
+    @Mapping(source = "currentPrice", target = "currentPrice")
+    @Mapping(source = "minBidPrice", target = "minBidPrice")
+    @Mapping(source = "startDate", target = "startDate")
+    @Mapping(source = "endDate", target = "endDate")
+    @Mapping(source = "createdDate", target = "createdDate")
+    @Mapping(source = "modifiedDate", target = "modifiedDate")
+    @Mapping(source = "status", target = "status")
+    @BeanMapping(ignoreByDefault = true)
+    @Named("fromEntityToDtoClient")
+    AuctionDto fromEntityToDtoClient(Auction auction);
+
+    @IterableMapping(elementTargetType = AuctionDto.class, qualifiedByName = "fromEntityToDtoClient")
+    List<AuctionDto> fromEntityToDtoClientList(List<Auction> auctions);
 }

@@ -74,4 +74,12 @@ public interface ProductMapper {
     @BeanMapping(ignoreByDefault = true)
     @Named("fromEntityToDtoAutoComplete")
     ProductDto fromEntityToDtoAutoComplete(Product product);
+
+    @Mapping(source = "name", target = "name")
+    @Mapping(source = "startBidPrice", target = "startBidPrice")
+    @Mapping(source = "mainImage", target = "mainImage")
+    @Mapping(source = "category", target = "category", qualifiedByName = "fromEntityToShortDto")
+    @BeanMapping(ignoreByDefault = true)
+    @Named("fromEntityToDtoAutoCompleteClient")
+    ProductDto fromEntityToDtoAutoCompleteClient(Product product);
 }

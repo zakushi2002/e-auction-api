@@ -93,6 +93,16 @@ public class AuctionController extends BaseController {
         return apiMessageDto;
     }
 
+    @GetMapping(value = "/list-client", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ApiMessageDto<ResponseListDto<AuctionDto>> listAuctionClient(AuctionCriteria auctionCriteria, Pageable pageable) {
+        ApiMessageDto<ResponseListDto<AuctionDto>> apiMessageDto = new ApiMessageDto<>();
+        Page<Auction> auctionPage = auctionRepository.findAll(auctionCriteria.getSpecification(), pageable);
+        ResponseListDto<AuctionDto> responseListObj = new ResponseListDto(auctionMapper.fromEntityToDtoClientList(auctionPage.getContent()), auctionPage.getTotalElements(), auctionPage.getTotalPages());
+        apiMessageDto.setData(responseListObj);
+        apiMessageDto.setMessage("Get list client auction success");
+        return apiMessageDto;
+    }
+
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ApiMessageDto<AuctionDto> updateStatusAuction(@RequestBody @Valid UpdateAuctionForm updateAuctionForm) {
