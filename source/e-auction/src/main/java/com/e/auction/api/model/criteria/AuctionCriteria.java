@@ -1,5 +1,6 @@
 package com.e.auction.api.model.criteria;
 
+import com.e.auction.api.constant.EAuctionConstant;
 import com.e.auction.api.model.*;
 import lombok.Data;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +24,8 @@ public class AuctionCriteria implements Serializable {
     private Date fromBidTime;
     private Date toBidTime;
     private Long categoryId;
+    private Date now;
+    private Integer sortBy = 3;
 
     public Specification<Auction> getSpecification() {
         return new Specification<>() {
@@ -70,6 +73,20 @@ public class AuctionCriteria implements Serializable {
                     Join<Category, Product> category = product.join("category", JoinType.INNER);
                     predicates.add(cb.equal(category.get("id"), getCategoryId()));
                     predicates.add(cb.equal(root.get("product").get("id"), product.get("id")));
+                }
+
+                if (getSortBy() != null) {
+                    if (getSortBy().equals(EAuctionConstant.SORT_PRICE_ASC)) {
+                        query.orderBy(cb.asc(root.get("currentPrice")));
+                    } else if (getSortBy().equals(EAuctionConstant.SORT_PRICE_DESC)) {
+                        query.orderBy(cb.desc(root.get("currentPrice")));
+                    } else if (getSortBy().equals(EAuctionConstant.SORT_NAME_ASC)) {
+                        Join<Product, Auction> product = root.join("product", JoinType.INNER);
+                        query.orderBy(cb.asc(product.get("name")));
+                    } else if (getSortBy().equals(EAuctionConstant.SORT_NAME_DESC)) {
+                        Join<Product, Auction> product = root.join("product", JoinType.INNER);
+                        query.orderBy(cb.desc(product.get("name")));
+                    }
                 }
                 if (getStatus() != null) {
                     predicates.add(cb.equal(root.get("status"), getStatus()));
