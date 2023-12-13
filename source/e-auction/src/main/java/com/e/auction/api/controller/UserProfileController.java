@@ -147,7 +147,7 @@ public class UserProfileController extends BaseController {
     }
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('USER_L')")
+    // @PreAuthorize("hasRole('USER_L')")
     public ApiMessageDto<ResponseListDto<UserProfileDto>> listUserProfileForServer(UserProfileCriteria userProfileCriteria, Pageable pageable) {
         ApiMessageDto<ResponseListDto<UserProfileDto>> apiMessageDto = new ApiMessageDto<>();
         Page<UserProfile> page = userProfileRepository.findAll(userProfileCriteria.getSpecification(), pageable);
@@ -158,7 +158,7 @@ public class UserProfileController extends BaseController {
     }
 
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('USER_D')")
+    // @PreAuthorize("hasRole('USER_D')")
     @Transactional
     public ApiMessageDto<Long> deleteUserAccount(@PathVariable("id") Long id) {
         ApiMessageDto<Long> apiMessageDto = new ApiMessageDto<>();

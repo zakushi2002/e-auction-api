@@ -47,7 +47,7 @@ public class AccountController extends BaseController {
     EAuctionApiService eAuctionApiService;
 
     @PostMapping(value = "/create-admin", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ACC_C_AD')")
+    // @PreAuthorize("hasRole('ACC_C_AD')")
     @Transactional
     public ApiResponse<String> createAdmin(@Valid @RequestBody CreateAdminForm createAdminForm, BindingResult bindingResult) {
         ApiResponse<String> apiMessageDto = new ApiResponse<>();
@@ -78,7 +78,7 @@ public class AccountController extends BaseController {
     }
 
     @PutMapping(value = "/update-admin", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ACC_U_AD')")
+    // @PreAuthorize("hasRole('ACC_U_AD')")
     @Transactional
     public ApiResponse<String> updateAdmin(@Valid @RequestBody UpdateAdminForm updateAdminForm, BindingResult bindingResult) {
         ApiResponse<String> apiMessageDto = new ApiResponse<>();
@@ -107,7 +107,7 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ACC_V')")
+    // @PreAuthorize("hasRole('ACC_V')")
     public ApiResponse<Account> getAccount(@PathVariable("id") Long id) {
         ApiResponse<Account> apiMessageDto = new ApiResponse<>();
         Account account = accountRepository.findById(id).orElse(null);
@@ -124,7 +124,7 @@ public class AccountController extends BaseController {
 
     @DeleteMapping(value = "/delete-admin/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ACC_D_AD')")
-    @Transactional
+    // @Transactional
     public ApiResponse<String> deleteAdmin(@PathVariable("id") Long id) {
         if (!isSuperAdmin()) {
             throw new UnauthorizationException("Not allowed to delete.");
@@ -143,7 +143,7 @@ public class AccountController extends BaseController {
     }
 
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ACC_L')")
+    // @PreAuthorize("hasRole('ACC_L')")
     public ApiResponse<ResponseListDto<AccountDto>> listAccount(AccountCriteria accountCriteria, Pageable pageable) {
         ApiResponse<ResponseListDto<AccountDto>> apiMessageDto = new ApiResponse<>();
         Page<Account> page = accountRepository.findAll(accountCriteria.getSpecification(), pageable);
