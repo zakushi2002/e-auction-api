@@ -396,4 +396,7 @@
                                  initiallyDeferred="false" referencedColumnNames="id"
                                  referencedTableName="db_e_auction_shipping" validate="true" onDelete="SET NULL"/>
     </changeSet>
+    <changeSet author="TOAN (generated)" id="1701522738734-32">
+        <dropColumn columnName="payment_price" tableName="db_e_auction_auction"/>
+    </changeSet>
 </databaseChangeLog>

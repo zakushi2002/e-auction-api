@@ -15,6 +15,7 @@ import com.e.auction.api.view.dto.auction.AuctionDto;
 import com.e.auction.api.view.form.auction.CreateAuctionForm;
 import com.e.auction.api.view.mapper.AuctionMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +44,7 @@ public class AuctionController extends BaseController {
     @Transactional
     public ApiMessageDto<AuctionDto> createAuction(@Valid @RequestBody CreateAuctionForm createAuctionForm, BindingResult bindingResult) {
         ApiMessageDto<AuctionDto> apiMessageDto = new ApiMessageDto<>();
-        Account seller = accountRepository.findById(createAuctionForm.getSellerId()).orElse(null);
+        Account seller = accountRepository.findById(getCurrentUser()).orElse(null);
         if (seller == null) {
             apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_FOUND);
             apiMessageDto.setMessage("Seller not found");
@@ -56,6 +57,8 @@ public class AuctionController extends BaseController {
             return apiMessageDto;
         }
         Auction auction = auctionMapper.fromCreateFormToModel(createAuctionForm);
+        auction.setEndDate(DateUtils.addHours(createAuctionForm.getStartDate(), product.getBidTime()));
+        auction.setCurrentPrice(product.getStartBidPrice());
         auction.setSeller(seller);
         auction.setProduct(product);
         auction.setStatus(EAuctionConstant.STATUS_PENDING);
