@@ -13,6 +13,7 @@ import com.e.auction.api.view.dto.ErrorCode;
 import com.e.auction.api.view.dto.ResponseListDto;
 import com.e.auction.api.view.dto.auction.AuctionDto;
 import com.e.auction.api.view.form.auction.CreateAuctionForm;
+import com.e.auction.api.view.form.auction.UpdateAuctionForm;
 import com.e.auction.api.view.mapper.AuctionMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateUtils;
@@ -89,6 +90,44 @@ public class AuctionController extends BaseController {
         ResponseListDto<AuctionDto> responseListObj = new ResponseListDto(auctionMapper.fromEntityToDtoList(auctionPage.getContent()), auctionPage.getTotalElements(), auctionPage.getTotalPages());
         apiMessageDto.setData(responseListObj);
         apiMessageDto.setMessage("Get list auction success");
+        return apiMessageDto;
+    }
+
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    public ApiMessageDto<AuctionDto> updateStatusAuction(@RequestBody @Valid UpdateAuctionForm updateAuctionForm) {
+        ApiMessageDto<AuctionDto> apiMessageDto = new ApiMessageDto<>();
+        Account admin = accountRepository.findById(getCurrentUser()).orElse(null);
+        if (admin == null) {
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_FOUND);
+            apiMessageDto.setMessage("Admin not found");
+            return apiMessageDto;
+        }
+        Auction auction = auctionRepository.findById(updateAuctionForm.getId()).orElse(null);
+        if (auction == null) {
+            apiMessageDto.setCode(ErrorCode.AUCTION_ERROR_NOT_FOUND);
+            apiMessageDto.setMessage("Auction not found");
+            return apiMessageDto;
+        }
+        if (updateAuctionForm.getStatus().equals(EAuctionConstant.STATUS_PENDING)) {
+            apiMessageDto.setCode(ErrorCode.AUCTION_ERROR_STATUS_INVALID);
+            apiMessageDto.setMessage("Status invalid");
+            return apiMessageDto;
+        }
+        if (updateAuctionForm.getStatus().equals(EAuctionConstant.STATUS_ACTIVE) && !admin.getKind().equals(EAuctionConstant.ACCOUNT_KIND_ADMIN)) {
+            apiMessageDto.setCode(ErrorCode.AUCTION_ERROR_NOT_ADMIN_APPROVE);
+            apiMessageDto.setMessage("Auction not admin approve");
+            return apiMessageDto;
+        }
+        if (updateAuctionForm.getStatus().equals(EAuctionConstant.STATUS_DONE) && !auction.getSeller().getId().equals(admin.getId())) {
+            apiMessageDto.setCode(ErrorCode.AUCTION_ERROR_NOT_BELONG_TO_SELLER);
+            apiMessageDto.setMessage("Auction not belong to seller");
+            return apiMessageDto;
+        }
+        auction.setStatus(updateAuctionForm.getStatus());
+        auctionRepository.save(auction);
+        apiMessageDto.setData(auctionMapper.fromEntityToDto(auction));
+        apiMessageDto.setMessage("Update status auction success");
         return apiMessageDto;
     }
 }
