@@ -58,6 +58,8 @@ public class ErrorCode {
      * Auction error code
      */
     public static final String AUCTION_ERROR_NOT_FOUND = "ERROR-AUCTION-000";
+    public static final String AUCTION_ERROR_NOT_EXPIRED = "ERROR-AUCTION-001";
+    public static final String AUCTION_ERROR_NOT_UPDATE = "ERROR-AUCTION-002";
 
     /**
      * Bid history error code
