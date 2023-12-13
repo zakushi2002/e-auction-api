@@ -14,6 +14,7 @@ import java.util.List;
 public class AuctionCriteria implements Serializable {
     private Long id;
     private Long productId;
+    private String productName;
     private Long winnerId;
     private Long sellerId;
     private Double fromBidPrice;
@@ -22,7 +23,6 @@ public class AuctionCriteria implements Serializable {
     private Date fromBidTime;
     private Date toBidTime;
     private Long categoryId;
-    private Boolean trending = false;
 
     public Specification<Auction> getSpecification() {
         return new Specification<>() {
@@ -39,6 +39,10 @@ public class AuctionCriteria implements Serializable {
                     Join<Product, Auction> product = root.join("product", JoinType.INNER);
                     predicates.add(cb.equal(product.get("id"), getProductId()));
                 }
+                if (getProductName() != null) {
+                    Join<Product, Auction> product = root.join("product", JoinType.INNER);
+                    predicates.add(cb.like(product.get("name"), "%" + getProductName().trim().toLowerCase() + "%"));
+                }
                 if (getWinnerId() != null) {
                     Join<Account, Auction> winner = root.join("winner", JoinType.INNER);
                     predicates.add(cb.equal(winner.get("id"), getWinnerId()));
@@ -49,20 +53,16 @@ public class AuctionCriteria implements Serializable {
                 }
                 if (getFromBidPrice() != null && getToBidPrice() != null) {
                     predicates.add(cb.between(root.get("currentPrice"), getFromBidPrice(), getToBidPrice()));
-                }
-                else if (getFromBidPrice() != null) {
+                } else if (getFromBidPrice() != null) {
                     predicates.add(cb.greaterThanOrEqualTo(root.get("currentPrice"), getFromBidPrice()));
-                }
-                else if (getToBidPrice() != null) {
+                } else if (getToBidPrice() != null) {
                     predicates.add(cb.lessThanOrEqualTo(root.get("currentPrice"), getToBidPrice()));
                 }
                 if (getFromBidTime() != null && getToBidTime() != null) {
                     predicates.add(cb.between(root.get("startDate"), getFromBidTime(), getToBidTime()));
-                }
-                else if (getFromBidTime() != null) {
+                } else if (getFromBidTime() != null) {
                     predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), getFromBidTime()));
-                }
-                else if (getToBidTime() != null) {
+                } else if (getToBidTime() != null) {
                     predicates.add(cb.lessThanOrEqualTo(root.get("startDate"), getToBidTime()));
                 }
                 if (getCategoryId() != null) {
@@ -73,12 +73,6 @@ public class AuctionCriteria implements Serializable {
                 }
                 if (getStatus() != null) {
                     predicates.add(cb.equal(root.get("status"), getStatus()));
-                }
-                if (getTrending() != null || getTrending()) {
-                    Root<BidHistory> bidHistory = query.from(BidHistory.class);
-                    Join<Auction, BidHistory> auction = bidHistory.join("auction", JoinType.INNER);
-                    query.groupBy(auction.get("id"));
-                    query.orderBy(cb.desc(cb.count(bidHistory.get("id"))));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
