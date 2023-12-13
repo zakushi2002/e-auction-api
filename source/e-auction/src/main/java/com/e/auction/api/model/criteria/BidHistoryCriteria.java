@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 public class BidHistoryCriteria implements Serializable {
     private Long id;
+    private Long auctionId;
     private Long productId;
     private Long bidderId;
     private Date fromBidTime;
@@ -31,6 +32,10 @@ public class BidHistoryCriteria implements Serializable {
 
                 if (getId() != null) {
                     predicates.add(cb.equal(root.get("id"), getId()));
+                }
+                if (getAuctionId() != null) {
+                    Join<Auction, BidHistory> auction = root.join("auction", JoinType.INNER);
+                    predicates.add(cb.equal(auction.get("id"), getAuctionId()));
                 }
                 if (getProductId() != null) {
                     Join<Auction, BidHistory> auction = root.join("auction", JoinType.INNER);

@@ -8,8 +8,6 @@ import javax.validation.constraints.NotNull;
 public class CreateBidHistoryForm {
     @NotNull(message = "auctionId cannot be null!!!")
     private Long auctionId;
-    @NotNull(message = "bidderId cannot be null!!!")
-    private Long bidderId;
     @NotNull(message = "bidPrice cannot be null!!!")
     private Double bidPrice;
 }
