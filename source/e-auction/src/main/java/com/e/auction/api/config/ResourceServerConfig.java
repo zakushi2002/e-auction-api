@@ -79,7 +79,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/v1/product/**").permitAll()
                 .antMatchers("/v1/auction/**").permitAll()
                 .antMatchers("/v1/address/**").permitAll()
-                .antMatchers("/v1/account/request_forget_password", "/v1/account/forget_password").permitAll()
+                .antMatchers("/v1/bid-history/**").permitAll()
+                .antMatchers("/v1/category/**").permitAll()
+                //.antMatchers("/v1/account/request_forget_password", "/v1/account/forget_password").permitAll()
                 .antMatchers("/**").authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
