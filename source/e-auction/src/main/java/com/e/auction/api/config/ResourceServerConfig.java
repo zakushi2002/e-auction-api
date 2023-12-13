@@ -77,6 +77,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/v1/group/**").permitAll()
                 .antMatchers("/v1/permission/**").permitAll()
                 .antMatchers("/v1/product/**").permitAll()
+                .antMatchers("/v1/auction/**").permitAll()
                 .antMatchers("/v1/address/**").permitAll()
                 .antMatchers("/v1/account/request_forget_password", "/v1/account/forget_password").permitAll()
                 .antMatchers("/**").authenticated()
