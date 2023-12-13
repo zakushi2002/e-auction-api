@@ -30,7 +30,6 @@ public class Auction extends Auditable<String> {
     @JoinColumn(name = "winner_id")
     private Account winner;
     private Integer maxBidders;
-    private Double paymentPrice;
     private Double currentPrice;
     private Double minBidPrice;
     private Date startDate;

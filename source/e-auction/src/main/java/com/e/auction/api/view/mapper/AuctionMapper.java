@@ -12,17 +12,15 @@ import java.util.List;
         uses = {AccountMapper.class, ProductMapper.class})
 public interface AuctionMapper {
     @Mapping(source = "maxBidders", target = "maxBidders")
-    @Mapping(source = "paymentPrice", target = "paymentPrice")
     @Mapping(source = "minBidPrice", target = "minBidPrice")
     @Mapping(source = "startDate", target = "startDate")
-    @Mapping(source = "endDate", target = "endDate")
     Auction fromCreateFormToModel(CreateAuctionForm createAuctionForm);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "product", target = "product", qualifiedByName = "fromEntityToDtoAutoComplete")
     @Mapping(source = "seller", target = "seller", qualifiedByName = "fromAccountToAutoCompleteDto")
     @Mapping(source = "maxBidders", target = "maxBidders")
-    @Mapping(source = "paymentPrice", target = "paymentPrice")
+    @Mapping(source = "currentPrice", target = "currentPrice")
     @Mapping(source = "minBidPrice", target = "minBidPrice")
     @Mapping(source = "startDate", target = "startDate")
     @Mapping(source = "endDate", target = "endDate")

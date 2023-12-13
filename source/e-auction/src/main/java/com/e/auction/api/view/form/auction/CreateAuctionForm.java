@@ -9,13 +9,9 @@ import java.util.Date;
 public class CreateAuctionForm {
     @NotNull(message = "productId can not be null!!!")
     private Long productId;
-    @NotNull(message = "sellerId can not be null!!!")
-    private Long sellerId;
     @NotNull(message = "maxBidders can not be null!!!")
     private Integer maxBidders;
-    private Double paymentPrice;
     @NotNull(message = "minBidPrice can not be null!!!")
     private Double minBidPrice;
     private Date startDate;
-    private Date endDate;
 }
