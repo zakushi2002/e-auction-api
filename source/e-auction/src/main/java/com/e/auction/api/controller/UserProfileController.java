@@ -98,7 +98,7 @@ public class UserProfileController extends BaseController {
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('USER_V')")
+    // @PreAuthorize("hasRole('USER_V')")
     public ApiMessageDto<UserProfileDto> getUserProfile(@PathVariable("id") Long id) {
         ApiMessageDto<UserProfileDto> apiMessageDto = new ApiMessageDto<>();
         UserProfile userProfile = userProfileRepository.findById(id).orElse(null);
