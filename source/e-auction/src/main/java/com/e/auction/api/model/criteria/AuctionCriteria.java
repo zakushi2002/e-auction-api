@@ -1,8 +1,6 @@
 package com.e.auction.api.model.criteria;
 
-import com.e.auction.api.model.Account;
-import com.e.auction.api.model.Auction;
-import com.e.auction.api.model.Product;
+import com.e.auction.api.model.*;
 import lombok.Data;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -23,6 +21,8 @@ public class AuctionCriteria implements Serializable {
     private Integer status;
     private Date fromBidTime;
     private Date toBidTime;
+    private Long categoryId;
+    private Boolean trending = false;
 
     public Specification<Auction> getSpecification() {
         return new Specification<>() {
@@ -65,8 +65,20 @@ public class AuctionCriteria implements Serializable {
                 else if (getToBidTime() != null) {
                     predicates.add(cb.lessThanOrEqualTo(root.get("startDate"), getToBidTime()));
                 }
+                if (getCategoryId() != null) {
+                    Root<Product> product = query.from(Product.class);
+                    Join<Category, Product> category = product.join("category", JoinType.INNER);
+                    predicates.add(cb.equal(category.get("id"), getCategoryId()));
+                    predicates.add(cb.equal(root.get("product").get("id"), product.get("id")));
+                }
                 if (getStatus() != null) {
                     predicates.add(cb.equal(root.get("status"), getStatus()));
+                }
+                if (getTrending() != null || getTrending()) {
+                    Root<BidHistory> bidHistory = query.from(BidHistory.class);
+                    Join<Auction, BidHistory> auction = bidHistory.join("auction", JoinType.INNER);
+                    query.groupBy(auction.get("id"));
+                    query.orderBy(cb.desc(cb.count(bidHistory.get("id"))));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }

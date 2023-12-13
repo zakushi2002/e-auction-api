@@ -42,7 +42,7 @@ public class BidHistoryController extends BaseController {
     @Transactional
     public ApiMessageDto<BidHistoryDto> createBidHistory(@Valid @RequestBody CreateBidHistoryForm createBidHistoryForm, BindingResult bindingResult) {
         ApiMessageDto<BidHistoryDto> apiMessageDto = new ApiMessageDto<>();
-        Account bidder = accountRepository.findById(createBidHistoryForm.getBidderId()).orElse(null);
+        Account bidder = accountRepository.findById(getCurrentUser()).orElse(null);
         if (bidder == null) {
             apiMessageDto.setResult(false);
             apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_FOUND);
@@ -56,10 +56,16 @@ public class BidHistoryController extends BaseController {
             apiMessageDto.setMessage("Auction not found!!!");
             return apiMessageDto;
         }
-        if (auction.getMinBidPrice() > createBidHistoryForm.getBidPrice()) {
+        if (auction.getCurrentPrice() + auction.getMinBidPrice() > createBidHistoryForm.getBidPrice()) {
             apiMessageDto.setResult(false);
             apiMessageDto.setCode(ErrorCode.BID_HISTORY_ERROR_BID_PRICE_INVALID);
-            apiMessageDto.setMessage("Bid price must be greater than min bid price of auction!!!");
+            apiMessageDto.setMessage("Bid price must be greater than total of current price and min bid price!!!");
+            return apiMessageDto;
+        }
+        if (auction.getEndDate().getTime() < System.currentTimeMillis()) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.BID_HISTORY_ERROR_BID_TIME_INVALID);
+            apiMessageDto.setMessage("Auction is expired!!!");
             return apiMessageDto;
         }
         BidHistory bidHistory = new BidHistory();
@@ -67,6 +73,9 @@ public class BidHistoryController extends BaseController {
         bidHistory.setAuction(auction);
         bidHistory.setBidPrice(createBidHistoryForm.getBidPrice());
         bidHistoryRepository.save(bidHistory);
+        auction.setCurrentPrice(createBidHistoryForm.getBidPrice());
+        auction.setWinner(bidder);
+        auctionRepository.save(auction);
         apiMessageDto.setData(bidHistoryMapper.fromEntityToDto(bidHistory));
         apiMessageDto.setMessage("You have successfully bid in this auction!!!");
         return apiMessageDto;

@@ -64,5 +64,6 @@ public class ErrorCode {
      */
     public static final String BID_HISTORY_ERROR_BID_PRICE_INVALID = "ERROR-BID-HISTORY-000";
     public static final String BID_HISTORY_ERROR_NOT_FOUND = "ERROR-BID-HISTORY-001";
+    public static final String BID_HISTORY_ERROR_BID_TIME_INVALID = "ERROR-BID-HISTORY-002";
 
 }
