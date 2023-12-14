@@ -8,6 +8,7 @@ import org.mapstruct.*;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
     uses = {AuctionMapper.class, PaymentMethodMapper.class, ShippingCostMapper.class})
 public interface TransactionMapper {
+    @Mapping(source = "id", target = "id")
     @Mapping(source = "auction", target = "auction", qualifiedByName = "fromEntityToDto")
     @Mapping(source = "paymentMethod", target = "paymentMethod", qualifiedByName = "fromEntityToDto")
     @Mapping(source = "address", target = "address")
