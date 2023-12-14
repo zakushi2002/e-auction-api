@@ -74,7 +74,10 @@ public class AuctionCriteria implements Serializable {
                     predicates.add(cb.equal(category.get("id"), getCategoryId()));
                     predicates.add(cb.equal(root.get("product").get("id"), product.get("id")));
                 }
-
+                if (getNow() != null) {
+                    predicates.add(cb.lessThanOrEqualTo(root.get("startDate"), getNow()));
+                    predicates.add(cb.greaterThanOrEqualTo(root.get("endDate"), getNow()));
+                }
                 if (getSortBy() != null) {
                     if (getSortBy().equals(EAuctionConstant.SORT_PRICE_ASC)) {
                         query.orderBy(cb.asc(root.get("currentPrice")));
