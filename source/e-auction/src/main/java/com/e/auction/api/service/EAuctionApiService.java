@@ -90,4 +90,8 @@ public class EAuctionApiService {
     public void sendEmail(String email, Map<String, Object> variables, String subject) {
         commonAsyncService.sendEmail(email, variables, subject);
     }
+
+    public void sendInvoice(String email, Map<String, Object> variables, String subject) {
+        commonAsyncService.sendInvoice(email, variables, subject);
+    }
 }
