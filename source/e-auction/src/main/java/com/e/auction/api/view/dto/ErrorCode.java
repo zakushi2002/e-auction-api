@@ -82,7 +82,17 @@ public class ErrorCode {
     /**
      * Payment error code
      */
-    public static final String PAYMENT_ERROR_NOT_FOUND = "ERROR-PAYMENT-000";
+    public static final String PAYMENT_METHOD_ERROR_NOT_FOUND = "ERROR-PAYMENT-000";
     public static final String PAYMENT_ERROR = "ERROR-PAYMENT-001";
 
+    /**
+     * Shipping cost error code
+     */
+    public static final String SHIPPING_COST_ERROR_NOT_FOUND = "ERROR-SHIPPING-COST-000";
+
+    /**
+     * Transaction error code
+     */
+    public static final String TRANSACTION_ERROR_NOT_FOUND = "ERROR-TRANSACTION-000";
+    public static final String TRANSACTION_ERROR_NOT_BELONG_TO_WINNER = "ERROR-TRANSACTION-001";
 }

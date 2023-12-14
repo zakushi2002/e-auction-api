@@ -6,5 +6,5 @@ import lombok.Data;
 public class CreateTransactionForm {
     private Long auctionId;
     private Long paymentMethodId;
-    private Integer duration;
+    private String address;
 }
