@@ -103,6 +103,16 @@ public class AuctionController extends BaseController {
         return apiMessageDto;
     }
 
+    @GetMapping(value = "/list-by-winner", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ApiMessageDto<ResponseListDto<AuctionDto>> listAuctionByWinner(Pageable pageable) {
+        ApiMessageDto<ResponseListDto<AuctionDto>> apiMessageDto = new ApiMessageDto<>();
+        Page<Auction> auctionPage = auctionRepository.findAllByWinnerIdAndStatus(getCurrentUser(), EAuctionConstant.STATUS_DONE, pageable);
+        ResponseListDto<AuctionDto> responseListObj = new ResponseListDto(auctionMapper.fromEntityToDtoList(auctionPage.getContent()), auctionPage.getTotalElements(), auctionPage.getTotalPages());
+        apiMessageDto.setData(responseListObj);
+        apiMessageDto.setMessage("Get list auction by winner success");
+        return apiMessageDto;
+    }
+
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ApiMessageDto<AuctionDto> updateStatusAuction(@RequestBody @Valid UpdateAuctionForm updateAuctionForm) {

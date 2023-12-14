@@ -74,6 +74,14 @@ public class EAuctionConstant {
     public static final Integer SORT_NAME_ASC = 3;
     public static final Integer SORT_NAME_DESC = 4;
 
+    /**
+     * Bank code constant
+     */
+    public static final String BANK_CODE_NCB = "NCB";
+    public static final String BANK_CODE_VISA = "VISA";
+    public static final String BANK_CODE_MASTERCARD = "MasterCard";
+    public static final String BANK_CODE_JCB = "JCB";
+
     private EAuctionConstant() {
         throw new IllegalStateException("Utility class");
     }
