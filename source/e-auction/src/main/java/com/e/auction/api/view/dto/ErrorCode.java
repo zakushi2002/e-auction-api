@@ -73,4 +73,16 @@ public class ErrorCode {
     public static final String BID_HISTORY_ERROR_BID_PRICE_INVALID = "ERROR-BID-HISTORY-000";
     public static final String BID_HISTORY_ERROR_NOT_FOUND = "ERROR-BID-HISTORY-001";
     public static final String BID_HISTORY_ERROR_BID_TIME_INVALID = "ERROR-BID-HISTORY-002";
+
+    /**
+     * Bank error code
+     */
+    public static final String BANK_ERROR_NOT_FOUND = "ERROR-BANK-000";
+
+    /**
+     * Payment error code
+     */
+    public static final String PAYMENT_ERROR_NOT_FOUND = "ERROR-PAYMENT-000";
+    public static final String PAYMENT_ERROR = "ERROR-PAYMENT-001";
+
 }
