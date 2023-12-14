@@ -29,4 +29,16 @@ public class EmailService {
             log.error(e.getMessage(), e);
         }
     }
+    public void sendInvoice(String email, Map<String, Object> variables, String subject) {
+        try {
+            MimeMessage message = emailSender.createMimeMessage();
+            message.setFrom("");
+            message.setRecipients(MimeMessage.RecipientType.TO, email);
+            message.setSubject(subject);
+            message.setContent(thymeleafService.createContentGetOTP("invoice.html", variables), "text/html; charset=utf-8");
+            emailSender.send(message);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+    }
 }

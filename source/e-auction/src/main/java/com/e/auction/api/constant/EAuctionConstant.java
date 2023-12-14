@@ -7,6 +7,7 @@ public class EAuctionConstant {
     public static final Integer OTP_LENGTH = 6;
     public static final Integer ATTEMPT_CODE_START = 1;
     public static final Integer ATTEMPT_CODE_MAX = 3;
+    public static final String INVOICE_SUBJECT_EMAIL = "Payment - Toy Bid";
 
     /**
      * Date format constant

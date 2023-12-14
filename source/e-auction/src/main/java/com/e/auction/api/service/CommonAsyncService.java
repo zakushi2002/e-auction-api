@@ -31,4 +31,16 @@ public class CommonAsyncService {
         };
         taskExecutor.execute(task3);
     }
+
+    @Async
+    public void sendInvoice(String email, Map<String, Object> variables, String subject) {
+        Runnable task3 = () -> {
+            try {
+                emailService.sendInvoice(email, variables, subject);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        };
+        taskExecutor.execute(task3);
+    }
 }
