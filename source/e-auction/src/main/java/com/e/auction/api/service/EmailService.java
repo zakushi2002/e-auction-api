@@ -2,6 +2,7 @@ package com.e.auction.api.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class EmailService {
     public void sendEmail(String email, Map<String, Object> variables, String subject) {
         try {
             MimeMessage message = emailSender.createMimeMessage();
+            message.setFrom("");
             message.setRecipients(MimeMessage.RecipientType.TO, email);
             message.setSubject(subject);
             message.setContent(thymeleafService.createContentGetOTP("email.html", variables), "text/html; charset=utf-8");

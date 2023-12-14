@@ -2,6 +2,11 @@ package com.e.auction.api.constant;
 
 public class EAuctionConstant {
     public static final String REGION_STATIC = "ap-southeast-1";
+    public static final String OTP_SUBJECT_EMAIL = "One-Time Password (OTP) - Expire in 5 minutes!";
+    public static final long OTP_VALID_DURATION = 300000; // 5 minutes
+    public static final Integer OTP_LENGTH = 6;
+    public static final Integer ATTEMPT_CODE_START = 1;
+    public static final Integer ATTEMPT_CODE_MAX = 3;
 
     /**
      * Date format constant

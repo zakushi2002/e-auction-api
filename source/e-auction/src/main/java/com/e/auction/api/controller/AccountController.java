@@ -3,6 +3,7 @@ package com.e.auction.api.controller;
 import com.e.auction.api.repository.AccountRepository;
 import com.e.auction.api.repository.GroupRepository;
 import com.e.auction.api.service.EAuctionApiService;
+import com.e.auction.api.view.dto.ApiMessageDto;
 import com.e.auction.api.view.dto.ApiResponse;
 import com.e.auction.api.view.dto.ErrorCode;
 import com.e.auction.api.view.dto.ResponseListDto;
@@ -15,6 +16,9 @@ import com.e.auction.api.exception.UnauthorizationException;
 import com.e.auction.api.model.Account;
 import com.e.auction.api.model.Group;
 import com.e.auction.api.model.criteria.AccountCriteria;
+import com.e.auction.api.view.form.account.forgot.ChangePasswordForgotForm;
+import com.e.auction.api.view.form.account.forgot.GetOTPForm;
+import com.e.auction.api.view.form.account.forgot.OTPForm;
 import com.e.auction.api.view.mapper.AccountMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -27,8 +31,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/account")
@@ -195,5 +203,123 @@ public class AccountController extends BaseController {
         accountRepository.save(account);
         apiMessageDto.setMessage("Update admin profile success");
         return apiMessageDto;
+    }
+
+    @PostMapping(value = "/send-otp-code", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @ApiIgnore
+    public ApiMessageDto<Long> sendOTPCode(@Valid @RequestBody GetOTPForm getOTPForm, BindingResult bindingResult) {
+        ApiMessageDto<Long> apiMessageDto = new ApiMessageDto<>();
+        Account account = accountRepository.findAccountByEmail(getOTPForm.getEmail());
+        if (account == null) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_FOUND);
+            return apiMessageDto;
+        }
+        if (account.getStatus().equals(EAuctionConstant.STATUS_LOCK)) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_LOCKED);
+            apiMessageDto.setMessage("Account was locked");
+            return apiMessageDto;
+        }
+        if (account.getResetPwdCode() != null && isOTPRequired(account)) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_SENT_REQUEST_OTP);
+            apiMessageDto.setMessage("Account was sent request OTP. Please check your email!");
+            return apiMessageDto;
+        }
+        String otpCode = eAuctionApiService.getOTPForgetPassword();
+        account.setResetPwdCode(otpCode);
+        account.setResetPwdTime(new Date());
+        accountRepository.save(account);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("otpCode", otpCode);
+        variables.put("fullName", account.getFullName());
+        eAuctionApiService.sendEmail(getOTPForm.getEmail(), variables, EAuctionConstant.OTP_SUBJECT_EMAIL);
+        apiMessageDto.setMessage("Send OTP code success");
+        return apiMessageDto;
+    }
+
+    @PutMapping(value = "/check-otp-code", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @ApiIgnore
+    public ApiMessageDto<String> checkOTPCode(@Valid @RequestBody OTPForm otpForm, BindingResult bindingResult) {
+        ApiMessageDto<String> apiMessageDto = new ApiMessageDto<>();
+        Account account = accountRepository.findAccountByEmail(otpForm.getEmail());
+        if (account == null) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_FOUND);
+            return apiMessageDto;
+        }
+        if (account.getStatus().equals(EAuctionConstant.STATUS_LOCK)) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_LOCKED);
+            apiMessageDto.setMessage("Account was locked");
+            return apiMessageDto;
+        }
+        if (account.getResetPwdCode() == null || account.getResetPwdCode().trim().isEmpty()) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_SEND_REQUEST_OTP);
+            apiMessageDto.setMessage("Account not send request OTP");
+            return apiMessageDto;
+        }
+        if (account.getAttemptCode() != null && account.getAttemptCode() > EAuctionConstant.ATTEMPT_CODE_MAX) {
+            account.setStatus(EAuctionConstant.STATUS_LOCK);
+            accountRepository.save(account);
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_LOCKED);
+            apiMessageDto.setMessage("Account is locked");
+            return apiMessageDto;
+        }
+        if (!otpForm.getOtp().equals(account.getResetPwdCode())) {
+            if (account.getAttemptCode() == null) {
+                account.setAttemptCode(EAuctionConstant.ATTEMPT_CODE_START);
+            } else {
+                account.setAttemptCode(account.getAttemptCode() + 1);
+            }
+            accountRepository.save(account);
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_OTP_INVALID);
+            return apiMessageDto;
+        }
+        if (!isOTPRequired(account)) {
+            account.setResetPwdCode(null);
+            account.setResetPwdTime(null);
+            accountRepository.save(account);
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_OTP_EXPIRED);
+            return apiMessageDto;
+        }
+        account.setAttemptCode(null);
+        account.setResetPwdCode(null);
+        account.setResetPwdTime(null);
+        accountRepository.save(account);
+        apiMessageDto.setMessage("Check OTP code success");
+        return apiMessageDto;
+    }
+
+    @PutMapping(value = "/change-password-forgot", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Transactional
+    @ApiIgnore
+    public ApiMessageDto<Long> changePasswordForgot(@Valid @RequestBody ChangePasswordForgotForm changePasswordForgotForm, BindingResult bindingResult) {
+        ApiMessageDto<Long> apiMessageDto = new ApiMessageDto<>();
+        Account account = accountRepository.findAccountByEmail(changePasswordForgotForm.getEmail());
+        if (account == null) {
+            apiMessageDto.setResult(false);
+            apiMessageDto.setCode(ErrorCode.ACCOUNT_ERROR_NOT_FOUND);
+            return apiMessageDto;
+        }
+        account.setPassword(passwordEncoder.encode(changePasswordForgotForm.getNewPassword()));
+        accountRepository.save(account);
+        apiMessageDto.setMessage("Change password success");
+        return apiMessageDto;
+    }
+
+    public boolean isOTPRequired(Account account) {
+        if (account.getResetPwdCode() == null || account.getResetPwdCode().trim().isEmpty()) {
+            return false;
+        }
+        long otpRequestedTime = account.getResetPwdTime().getTime();
+        return otpRequestedTime + EAuctionConstant.OTP_VALID_DURATION >= System.currentTimeMillis(); // OTP expires
     }
 }

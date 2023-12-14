@@ -1,5 +1,6 @@
 package com.e.auction.api.service;
 
+import com.e.auction.api.constant.EAuctionConstant;
 import com.e.auction.api.utils.AWSCloudUtil;
 import com.e.auction.api.view.dto.ApiMessageDto;
 import com.e.auction.api.view.dto.UploadFileDto;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -31,6 +33,8 @@ public class EAuctionApiService {
     private String endpointUrl;
     @Autowired
     CommonAsyncService commonAsyncService;
+    @Autowired
+    OTPService OTPService;
     private final AWSCloudUtil awsCloudUtil = new AWSCloudUtil();
 
     public ApiMessageDto<UploadFileDto> uploadFileS3(UploadFileForm uploadFileForm) {
@@ -77,5 +81,13 @@ public class EAuctionApiService {
     public void deleteFileS3(String folder, String fileName) {
         String bucketFolder = bucketName + "/" + folder.trim().toLowerCase();
         awsCloudUtil.deleteFile(fileName, accessKey, secretKey, bucketFolder);
+    }
+
+    public String getOTPForgetPassword() {
+        return OTPService.generate(EAuctionConstant.OTP_LENGTH);
+    }
+
+    public void sendEmail(String email, Map<String, Object> variables, String subject) {
+        commonAsyncService.sendEmail(email, variables, subject);
     }
 }
