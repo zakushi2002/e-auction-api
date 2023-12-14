@@ -121,10 +121,14 @@ public class TransactionController extends BaseController {
         variables.put("transactionId", transaction.getId());
         variables.put("payDate", transaction.getCreatedDate());
         variables.put("email", transaction.getBidder().getEmail());
+        variables.put("accountId", transaction.getBidder().getId());
 
         eAuctionApiService.sendInvoice(transaction.getBidder().getEmail(), variables, EAuctionConstant.INVOICE_SUBJECT_EMAIL);
         transaction.setStatus(EAuctionConstant.STATUS_ACTIVE);
         transactionRepository.save(transaction);
+        Auction auction = transaction.getAuction();
+        auction.setStatus(EAuctionConstant.STATUS_TRANSACTION_DONE);
+        auctionRepository.save(auction);
         apiMessageDto.setData(transactionMapper.fromCreateTransactionFormToDto(transaction));
         apiMessageDto.setMessage("Update transaction success");
         return apiMessageDto;
