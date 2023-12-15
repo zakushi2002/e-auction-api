@@ -11,7 +11,10 @@ import java.lang.annotation.*;
 @Documented
 public @interface Privacy {
     boolean allowNull() default false;
+
     String message() default "Privacy invalid!";
+
     Class<?>[] groups() default {};
+
     Class<?>[] payload() default {};
 }

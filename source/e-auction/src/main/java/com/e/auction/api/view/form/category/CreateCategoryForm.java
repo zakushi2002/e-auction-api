@@ -1,6 +1,5 @@
 package com.e.auction.api.view.form.category;
 
-import com.e.auction.api.view.validation.CategoryKind;
 import com.e.auction.api.view.validation.Status;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,7 +19,6 @@ public class CreateCategoryForm {
     private String categoryImage;
     @ApiModelProperty(name = "categoryOrdering")
     private Integer categoryOrdering;
-    @CategoryKind
     @ApiModelProperty(name = "categoryKind", required = true)
     @NotNull(message = "categoryKind cannot be null")
     private Integer categoryKind;

@@ -23,6 +23,7 @@ public class StatusValidation implements ConstraintValidator<Status, Integer> {
         return Objects.equals(status, EAuctionConstant.STATUS_PENDING)
                 || Objects.equals(status, EAuctionConstant.STATUS_ACTIVE)
                 || Objects.equals(status, EAuctionConstant.STATUS_LOCK)
-                || Objects.equals(status, EAuctionConstant.STATUS_DELETE);
+                || Objects.equals(status, EAuctionConstant.STATUS_DELETE)
+                || Objects.equals(status, EAuctionConstant.STATUS_DONE);
     }
 }

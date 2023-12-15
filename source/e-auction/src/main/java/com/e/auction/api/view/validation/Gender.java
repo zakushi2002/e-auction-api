@@ -1,18 +1,18 @@
 package com.e.auction.api.view.validation;
 
-import com.e.auction.api.view.validation.implement.CategoryKindValidation;
+import com.e.auction.api.view.validation.implement.GenderValidation;
 
 import javax.validation.Constraint;
 import java.lang.annotation.*;
 
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = CategoryKindValidation.class)
+@Constraint(validatedBy = GenderValidation.class)
 @Documented
-public @interface CategoryKind {
+public @interface Gender {
     boolean allowNull() default false;
 
-    String message() default "Category kind invalid!";
+    String message() default "Gender invalid!";
 
     Class<?>[] groups() default {};
 
