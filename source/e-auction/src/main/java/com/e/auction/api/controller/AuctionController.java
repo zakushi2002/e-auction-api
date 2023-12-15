@@ -62,7 +62,6 @@ public class AuctionController extends BaseController {
         auction.setCurrentPrice(product.getStartBidPrice());
         auction.setSeller(seller);
         auction.setProduct(product);
-        auction.setStatus(EAuctionConstant.STATUS_PENDING);
         auctionRepository.save(auction);
         apiMessageDto.setData(auctionMapper.fromEntityToDto(auction));
         apiMessageDto.setMessage("Create auction success");
